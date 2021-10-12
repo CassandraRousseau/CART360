@@ -25,9 +25,9 @@
 #define BUTTON_MODE_PIN 2 // Button to change the mode
 
 // constants for RGB LED
-#define LED_PIN_R 9  // B PIN
+#define  LED_PIN_B 9  // B PIN
 #define LED_PIN_G 10 // G PIN
-#define LED_PIN_B 11 // R PIN
+#define LED_PIN_R 11 // R PIN
 
 // constant for note in (button-resistor ladder on breadboard)
 # define NOTE_IN_PIN A0
@@ -140,14 +140,14 @@ void setRGB()
       digitalWrite(LED_PIN_R, LOW);
       break;
     case 1:
-      digitalWrite(LED_PIN_R, HIGH);
-      digitalWrite(LED_PIN_B, LOW);
+      digitalWrite(LED_PIN_B, HIGH);
+      digitalWrite(LED_PIN_R, LOW);
       digitalWrite(LED_PIN_G, LOW);
       break;
     case 2:
-      digitalWrite(LED_PIN_B, HIGH);
+      digitalWrite(LED_PIN_B, LOW);
       digitalWrite(LED_PIN_G, LOW);
-      digitalWrite(LED_PIN_R, LOW);
+      digitalWrite(LED_PIN_R, HIGH);
       break;
     case 3:
       digitalWrite(LED_PIN_G, HIGH);
@@ -157,8 +157,8 @@ void setRGB()
     case 4:
       digitalWrite(LED_PIN_B, HIGH);
       digitalWrite(LED_PIN_R, HIGH);
+      digitalWrite(LED_PIN_G, LOW);
       break;
-
   }
 }
 
@@ -239,16 +239,15 @@ void record()
   delay(200);
   if (digitalRead(BUTTON_MODE_PIN) == HIGH) {
     for (int i = 0; i < MAX_NOTES; i++) {
-      int newNote = NOTE_IN_PIN;
-      notes.push(newNote);
+      digitalWrite(NOTE_IN_PIN, OUTPUT);
+      delay(200);
     }
   }
-  //  notes[MAX_NOTES]= NOTE_IN_PIN;
   Serial.println(93);
 }
 //  notes [MAX_NOTES]
 //  record in array declared above
-}
+
 /******************PLAY(): IMPLEMENT ************************************
    INSTRUCTIONS:
    this function will playback any notes stored in the array that were recorded
@@ -259,39 +258,42 @@ void record()
    ALSO: as long as we are in this mode, the notes are played over and over again
    BE CAREFUL: make sure you allow for the user to get to another mode from the mode button...
 **************************************************************************/
-void play()
-{
-  if (digitalRead(BUTTON_MODE_PIN) == HIGH) {
-    for (int i = 0; i < MAX_NOTES; i++) {
-      while (Serial.available() == 0) {
-        tone(BUZZER_PIN, analogRead(NOTE_IN_PIN), duration);
-        delay(200);
-      }
-      notes[i] = Serial.parseFloat();
-    }
-    if (digitalRead(BUTTON_MODE_PIN) == HIGH) {
-      noTone(BUZZER_PIN);
-    }
-    )
-  }
-  /******************LOOPMODE(): IMPLEMENT *********************************
-     INSTRUCTIONS:
-     this function will playback any notes stored in the array that were recorded
-     in the previous mode
-     SO: you need to go through the array of values (be careful - the user may not have put in MAX_NOTES)
-     READ values IN ANY ORDERING (You MUST use the array - but you can determine your own sequence)
-     AND output each note to the buzzer using the tone() function
-     ALSO: as long as we are in this mode, the notes are played over and over again
-     BE CAREFUL: make sure you allow for the user to get to another mode from the mode button...
-  **************************************************************************/
-  void looper()
-  {
-    for (int i = 0; i < MAX_NOTES; i++) {
-      tone(BUZZER_PIN, analogRead(NOTE_IN_PIN), duration);
-      delay(200);
-    }
-    if (digitalRead(BUTTON_MODE_PIN) == HIGH) {
-      noTone(BUZZER_PIN);
-    }
-  }
-  /**************************************************************************/
+//void play()
+//{
+//  if (digitalRead(BUTTON_MODE_PIN) == HIGH) {
+//    for (int i = 0; i < MAX_NOTES; i++) {
+//         digitalWrite(BUZZER_PIN,HIGH);
+//    }
+//  if (digitalRead(BUTTON_MODE_PIN) == HIGH) {
+//    for (int i = 0; i < MAX_NOTES; i++) {
+//      while (Serial.available() == 0) {
+//        tone(BUZZER_PIN, analogRead(NOTE_IN_PIN), duration);
+//        delay(200);
+//      }
+//      notes[i] = Serial.parseFloat();
+//    }
+//    if (digitalRead(BUTTON_MODE_PIN) == HIGH) {
+//      noTone(BUZZER_PIN);
+//    }
+//
+//  }
+/******************LOOPMODE(): IMPLEMENT *********************************
+   INSTRUCTIONS:
+   this function will playback any notes stored in the array that were recorded
+   in the previous mode
+   SO: you need to go through the array of values (be careful - the user may not have put in MAX_NOTES)
+   READ values IN ANY ORDERING (You MUST use the array - but you can determine your own sequence)
+   AND output each note to the buzzer using the tone() function
+   ALSO: as long as we are in this mode, the notes are played over and over again
+   BE CAREFUL: make sure you allow for the user to get to another mode from the mode button...
+**************************************************************************/
+//  void looper(){
+////    for (int i = 0; i < MAX_NOTES; i++) {
+////      tone(BUZZER_PIN, analogRead(NOTE_IN_PIN), duration);
+////      delay(200);
+////    }
+////    if (digitalRead(BUTTON_MODE_PIN) == HIGH) {
+////      noTone(BUZZER_PIN);
+////    }
+//  }
+/**************************************************************************/
