@@ -1,0 +1,239 @@
+NAME:Cassandra Rousseau
+
+ANSWERS TO QUIZ QUESTIONS:
+1)B)
+2)B)
+3)B)
+4)B)
+5)A)
+6)A)
+7)A)
+8)P= I x V
+I=P/V
+V=P/I
+9)B)
+10)V = I x R
+R= V/R
+I= V/I
+
+11.a)i)R= V/I
+	=9V/0,3A
+	=30 Ohms
+
+ii)P= I x V
+	=0,3A x 3.0V
+	= 0,9W	
+
+iii) P= I x V
+	= 0,3A x 9V
+	= 2,7W
+
+11.b)LED1:3V
+R1:6V
+11.c)A)
+
+12.Nodes)Intersection between R2, R3 and R4; intersection between R3, R4 and the battery 
+12.Series)R1,R2
+12.Parallel)R3,R4
+
+13)The duty cycle represents the width of a high PWM (i.e., pulse wave modulation) signal 
+over a certain period of time.
+
+14)Rt= 1/R1+ 1/R2+ 1/R3
+	=1/100 Ohms + 1/100 Ohms + 1/20 Ohms
+	=0,01 + 0,01+ 0,05
+	=0,07 Ohms
+
+15) A) and B)
+
+16.R1)Resistor One
+16.S1)Switch One
+16.D2)Diode Two
+
+17)B)
+18)B)
+19)A)
+20)C)
+21)D)
+22)A)
+23)A)
+
+P= I x V
+	= 0,5A x 12 V
+	= 6W
+
+P= I x V
+ = 0,5A x 3.0 V 
+ = 1,5W
+6W-1,5W = 4,5W
+
+24.1)Reset button 
+24.2)USB jack 
+24.3)Power jack 
+24.4)Digital Pins
+24.5)Digital Pins
+24.6)Power Pins
+24.7)Analog Pins
+24.8)Atmega328
+
+25.a)The range of possible values is between 0 and 1023.
+25.b)The ADC
+25.c) int analogPin = A0;
+int num;
+int i=0;
+void setup(){
+Serial.begin(9600);
+}
+void loop(){
+num[i] = analogRead(analogPin);
+int value=num[i];
+Serial.println(value); 
+}
+
+26.a)The range of possible values is between 0 and 1023.
+26.b)The ADC
+26.c)int analogPin = A0;
+int outputPin = 3;
+int num;
+int i=0;
+void setup(){
+Serial.begin(9600);
+}
+void loop(){
+num[i] = analogRead(analogPin);
+int value= num[i];
+analogWrite(outputPin, value);
+}
+26.d)int analogPin = A0;
+int outputPin = 3;
+int num [0.5];
+int i=0;
+void setup(){
+Serial.begin(9600);
+}
+void loop(){
+num[i] = analogRead(analogPin);
+int value= num[i];
+if(value%20){
+analogWrite(outputPin, value);}
+else if(value%75){
+analogWrite(outputPin, value);}
+
+27.A)const LED_PIN 9
+27.B)int LED_PIN 9
+
+28)The pin 10 is an output, which means that it will activate the commands requested from the code when the 
+right components are activated. If the pin was assigned as a Input pullup, it will reverse the usual properties 
+assigned to inputs and outputs in the circuit; the called outputs will receive the information in the circuit 
+and inputs will send to the world the information received.    
+
+29.a) In this code, the LED states will change each time the delays are over, and repeat these actions in loop in 
+the circuit. 
+29.b)The change state does not depend anymore on the activation of the LED in the circuit but on a certain 
+amount of time. 
+29.c) int LED_PIN 9
+int BUTTON_PIN 4
+
+void setup() {
+pinMode(BUTTON_PIN, INPUT);
+pinMode(LED_PIN, OUTPUT);
+ }
+void loop() {
+int analog = analogRead(0);
+if(digitalRead(BUTTON_PIN) == HIGH){
+analogWrite (LED_PIN, 255);
+delay(1000);
+}else{
+analogWrite(LED_PIN,0);
+delay( analog % 255 );
+}
+}
+
+30.a)Break is used to exit the called state
+30.b)The default state will activate when no state can apply to the requirements called in the code. 
+30.c)The text "It is windy" will appear on the serial monitor
+30.d)The value of testVal that is equal or above 5 will appear on the serial monitor
+
+31.a)i)
+int myVars={2,4,6,8,9,10};
+int maxVars=10;
+void setup(){
+Serial.begin(9600);
+}
+void loop(){
+for(int i=0, i< maxVars,i++){
+ii)Serial.Println(myVars[i]);
+}
+iii)Serial.write(myVars);
+}
+31.b)int myVars={2,4,6,8,9,10};
+void setup(){
+Serial.begin(9600);
+}
+void loop(){
+for(int i=0, i<sizeof(myVars),i++){
+Serial.Println(myVars[i]);
+}
+}
+31.c)NO
+31.d)
+i)int myVars={2,4,6,8,9,10};
+int maxVars=10;
+void setup(){
+Serial.begin(9600);
+}
+void loop(){
+myVars[2]==6;
+for(int i=0, i< maxVars,i++){
+Serial.Println(myVars[i]);
+}
+‭ii)myVars[2]=i/10;
+iii)Serial.write(myVars);
+}
+
+ myVars will be altered. Its result in the third value will be 0,6.
+
+32.a)The function returns the amount of points divided by 256. 
+32.b)The range of retruned numbers is between 0 and 256
+32.c) 
+void setup(){
+pinMode(BUTTON_PIN, OUTPUT);
+}
+void loop(){
+if (digitalRead(BUTTON_PIN) == HIGH){
+calculateNumberOfStars();
+}
+
+uint8_t calculateNumberOfStars( int points ) {
+return points % 256;
+}
+}
+32.d)The bit size of an int is 16-bit. The largest value that can be expressed by an interger on an Arduino is 32,767. 
+
+33)int Vin=5;
+int R1 = 5,6;
+int R2; 
+int VoutDiscrete;
+int VoutVoltage;
+int value;
+int analogPin=analogRead(A0);
+
+void setup(){
+Serial.begin(9600);
+}
+void loop(){
+if (analogPin){
+
+i)R2 = R1 * analogPin
+value= analogPin*Vin
+ii)VoutDiscrete=value/1023
+iii)VoutVoltage= Vin*R2/(R1+R2)
+}
+Serial.println(R2);
+Serial.println(VoutDiscrete);
+Serial.println(VoutVoltage);
+}
+34)In the void setup, we read the sensor value under 5000 milliseconds. If the value read in the sensorPin is 
+above the maximum value called in the code, this value will replace the one established in the sensor maximum 
+value. If the read sensor value is under the established minimum sensor value integer, the sensor minimum value 
+will become the value read in the sensor.    
