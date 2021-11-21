@@ -1,5 +1,6 @@
-//pitch shifter test
+#include <MozziGuts.h>
 
+//pitch shifter test
 //Buzzer
 #define buzzer 9
 //Button
@@ -24,6 +25,7 @@ int duration, cm;
 //Sets the pins
 void setup() {
   Serial.begin(9600);
+    startMozzi(); 
   // Sets pins
   pinMode(buzzer, OUTPUT);
   pinMode(buttonPin, INPUT);
@@ -100,8 +102,8 @@ void checkDistance() {
   duration = pulseIn(echoPin, HIGH);
 
   //Converts distance to music duration
-  cm = microsecondsToCentimeters(duration);
-
+//  cm = microsecondsToCentimeters(duration);
+ cm = mozziAnalogRead(duration); // value is 0-1023
   //changes pitch
   currentTone = cm * 5;
 
