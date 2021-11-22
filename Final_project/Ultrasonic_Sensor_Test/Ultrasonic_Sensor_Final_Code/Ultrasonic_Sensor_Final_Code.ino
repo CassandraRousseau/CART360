@@ -1,5 +1,3 @@
-#include <MozziGuts.h>
-
 //pitch shifter test
 //Buzzer
 #define buzzer 9
@@ -22,10 +20,13 @@ int mode = 0; //1,2,3; 0==off
 // distance and music duration variables will change:
 int duration, cm;
 
+// use: Oscil <table_size, update_rate> oscilName (wavetable), look in .h file of table #included above
+Oscil <SIN2048_NUM_CELLS, AUDIO_RATE> aSin(SIN2048_DATA);
+
 //Sets the pins
 void setup() {
   Serial.begin(9600);
-    startMozzi(); 
+
   // Sets pins
   pinMode(buzzer, OUTPUT);
   pinMode(buttonPin, INPUT);
@@ -103,13 +104,14 @@ void checkDistance() {
 
   //Converts distance to music duration
 //  cm = microsecondsToCentimeters(duration);
- cm = mozziAnalogRead(duration); // value is 0-1023
+ cm = mozziAnalogRead(buzzer); // value is 0-1023
   //changes pitch
   currentTone = cm * 5;
 
   // if distance less than 0.5 meter and more than 0 (0 or less means over range)
   if (cm <= 50 && cm >= 0) {
     // Buzz
+     aSin.setFreq(currentTone);
     tone(buzzer, currentTone);
     isBuzzing = true;
   } else if (cm > 50) {
